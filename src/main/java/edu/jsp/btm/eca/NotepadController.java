@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +47,21 @@ public class NotepadController {
 			return "NotePad Delted ";
 		}
 		return "Notepad WIth the Given Id = " + notePadId + " Is Not Present";
+	}
+
+	@PutMapping("/notes/modify")
+	public String modifyNotePad(@RequestBody Notepad notepad) {
+//		1) Checking NotePad is NOt Null
+//		2) NotePad Is Not 0
+//		3) Is NotePad with the Given Id Present Or Not
+
+		if (notepad != null && notepad.getNotepadId() != 0 
+				&& respository.existsById(notepad.getNotepadId())) {
+			respository.save(notepad);
+			return "NotePad Updetd";
+		}
+		return "Invlid Info";
+
 	}
 
 }
