@@ -45,7 +45,8 @@ public class NotepadController {
 		if (optional.isPresent()) {
 			return optional.get();
 		}
-		throw new NotePadIdNotFoundException("NotePad With the Given Id = " + notePadId + " Not Present");
+		throw new NotePadIdNotFoundException("Noted With the Given Id = " + notePadId 
+				+ " Id Not Present");
 
 	}
 
