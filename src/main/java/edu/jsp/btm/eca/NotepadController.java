@@ -45,8 +45,8 @@ public class NotepadController {
 		if (optional.isPresent()) {
 			return optional.get();
 		}
-		throw new NotePadIdNotFoundException("Noted With the Given Id = " + notePadId 
-				+ " Id Not Present");
+		throw new NotePadIdNotFoundException("Noted With the Given Id = " + notePadId + 
+				"  Not Present");
 
 	}
 
@@ -65,7 +65,8 @@ public class NotepadController {
 //		2) NotePad Is Not 0
 //		3) Is NotePad with the Given Id Present Or Not
 
-		if (notepad != null && notepad.getNotepadId() != 0 && respository.existsById(notepad.getNotepadId())) {
+		if (notepad != null && notepad.getNotepadId() != 0 && 
+				respository.existsById(notepad.getNotepadId())) {
 			respository.save(notepad);
 			return "NotePad Updetd";
 		}
