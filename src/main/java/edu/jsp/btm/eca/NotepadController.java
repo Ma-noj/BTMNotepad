@@ -12,16 +12,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(allowedHeaders = "*", exposedHeaders = "*")
+@RequestMapping("/api/notes")
 public class NotepadController {
 	@Autowired
 	private NotePadRepository respository;
 
-	@PostMapping("/notes/save")
+	@PostMapping("/save")
 	public ResponseEntity<ResponseStrcture<Notepad>> saveNotepad(@RequestBody Notepad notepad) {
 		notepad = respository.save(notepad);
 
@@ -32,22 +34,22 @@ public class NotepadController {
 		return new ResponseEntity<ResponseStrcture<Notepad>>(strcture, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/notes/findAll")
+	@GetMapping("/findAll")
 	public List<Notepad> findAllNotepad() {
 		return respository.findAll();
 	}
 
-	@GetMapping("/notes/findById")
+	@GetMapping("/findById")
 	public Notepad findById(@RequestParam int notePadId) {
 		Optional<Notepad> optional = respository.findById(notePadId);
 		if (optional.isPresent()) {
 			return optional.get();
 		}
-		return null;
+		throw new NotePadIdNotFoundException("NotePad With the Given Id = " + notePadId + " Not Present");
 
 	}
 
-	@DeleteMapping("/notes/delete")
+	@DeleteMapping("/delete")
 	public String deleteById(@RequestParam int notePadId) {
 		if (respository.existsById(notePadId)) {
 			respository.deleteById(notePadId);
@@ -56,7 +58,7 @@ public class NotepadController {
 		return "Notepad WIth the Given Id = " + notePadId + " Is Not Present";
 	}
 
-	@PutMapping("/notes/modify")
+	@PutMapping("/modify")
 	public String modifyNotePad(@RequestBody Notepad notepad) {
 //		1) Checking NotePad is NOt Null
 //		2) NotePad Is Not 0
