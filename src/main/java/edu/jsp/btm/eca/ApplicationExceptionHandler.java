@@ -26,6 +26,14 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 		ResponseStrcture<String> strcture = new ResponseStrcture<String>();
 		strcture.setStatusCode(HttpStatus.BAD_REQUEST.value());
 		strcture.setMessage(exception.getMessage());
-		return new ResponseEntity<ResponseStrcture<String>>(strcture,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<ResponseStrcture<String>>(strcture, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ResponseStrcture<String>> handleUserNotFoundException(UserNotFoundException exception) {
+		ResponseStrcture<String> strcture = new ResponseStrcture<String>();
+		strcture.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		strcture.setMessage(exception.getMessage());
+		return new ResponseEntity<ResponseStrcture<String>>(strcture, HttpStatus.BAD_REQUEST);
 	}
 }
